@@ -32,7 +32,7 @@ def posterior(theta, y):
     """
     return likelihood(y, theta)*prior(theta)
 
-theta = np.linspace(0, 70, 10000)
+theta = np.linspace(0.001, 70, 10000)
 normalization = np.trapz(posterior(theta, fatal_accidents), theta)
 
 def posterior_normalized(theta, y):
