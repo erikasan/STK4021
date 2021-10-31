@@ -22,13 +22,41 @@ def gamma(p):
 def delta(p):
     return p[:, 0, 1]*p[:, 1, 0]/(p[:, 0, 0]*p[:, 1, 1])
 
-N = 500000
+N = 5000000
+# samples = dirichlet.rvs(size=N)
+# samples = samples.reshape((N, 2, 2))
+
+quantiles = [0.05, 0.5, 0.95]
+
+# print('Phi quantiles:', np.quantile(phi(samples), quantiles).round(3))
+# print('Gamma quantiles:', np.quantile(gamma(samples), quantiles).round(3))
+# print('Delta quantiles:', np.quantile(delta(samples), quantiles).round(3))
+
+# phi_hist = np.histogram(phi(samples), bins=1000000, range = (0, 10000), density=True)
+# phi_dist = rv_histogram(phi_hist)
+#
+# phi_input = np.linspace(0, 50, 100000)
+# plt.plot(phi_input, phi_dist.pdf(phi_input))
+# plt.show()
+
+n = np.array([24, 27, 34, 26])
+
+dirichlet.alpha = n + 0.5
+
+# samples = dirichlet.rvs(size=N)
+# samples = samples.reshape((N, 2, 2))
+#
+# print('Phi quantiles:', np.quantile(phi(samples), quantiles).round(3))
+# print('Gamma quantiles:', np.quantile(gamma(samples), quantiles).round(3))
+# print('Delta quantiles:', np.quantile(delta(samples), quantiles).round(3))
+
+mydata = np.array([4, 0, 2, 2])
+
+dirichlet.alpha = n + mydata
+
 samples = dirichlet.rvs(size=N)
 samples = samples.reshape((N, 2, 2))
 
-phi_hist = np.histogram(phi(samples), bins=1000, range = (0, 1), density=True)
-phi_dist = rv_histogram(phi_hist)
-
-phi_input = np.linspace(0, 0.5, 100000)
-plt.plot(phi_input, phi_dist.pdf(phi_input))
-plt.show()
+print('Phi quantiles:', np.quantile(phi(samples), quantiles).round(3))
+print('Gamma quantiles:', np.quantile(gamma(samples), quantiles).round(3))
+print('Delta quantiles:', np.quantile(delta(samples), quantiles).round(3))
