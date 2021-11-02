@@ -12,16 +12,18 @@ y = np.array(y)
 
 m = len(y)
 
-N_samples = 20000
+N_samples = 5000
 
 with pm.Model() as model:
     a = pm.Uniform('a', lower=-8, upper=8)
     b = pm.Uniform('b', lower=-8, upper=8)
-    
+
     p = pm.Deterministic('p', tt.exp(a + b*x)/(1 + tt.exp(a + b*x)))
-    
+
     observed = pm.Binomial('observed', m, p, observed=y)
-    
+
     step = pm.Metropolis()
-    
-    trace = pm.sample(N_samples, step=step)
+
+    trace = pm.sample(N_samples, step=step, tune=10000, return_inferencedata=True)
+
+print(az.summary(trace))

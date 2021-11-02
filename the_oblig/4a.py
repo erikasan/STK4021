@@ -1,5 +1,6 @@
 import numpy as np
 from scipy.optimize import minimize
+from sympy import symbols, diff
 
 x = [0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0]
 x = np.array(x)
@@ -22,4 +23,6 @@ res = minimize(fun=negloglikelihood, x0=np.array([0,0]), args=(x,y), tol=1e-10)
 
 a_hat, b_hat = res.x
 
-print(np.array([a_hat, b_hat]).round(3))
+#print(np.array([a_hat, b_hat]).round(3))
+
+a, b = symbols('a b', real=True)
